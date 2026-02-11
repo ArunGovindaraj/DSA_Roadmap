@@ -1,5 +1,6 @@
 ﻿using DSARoadmap.Common.CommonServices;
 using System.Globalization;
+using System.Text;
 using System.Transactions;
 
 namespace DSARoadmap.ArrayAndStringProblems
@@ -71,6 +72,11 @@ namespace DSARoadmap.ArrayAndStringProblems
             Console.WriteLine("Missing Number is: " + MissingNumber(new int[] { 3,0,1 })); 
             Console.WriteLine("Duplicate Number is: " + FindDuplicateNumber(new int[] { 1,3,4,2,2 }));
             commonServices.PrintDictionary<char, int>(CountOccurrences("hello world"), (key, value) => $"Character: {key}, Occurrences: {value}");
+            Console.WriteLine("String after removing duplicates: " + RemoveDuplicates("hello world"));
+            Console.WriteLine("Reversed Words in Sentence: " + ReverseWords("Hello World from DSA Roadmap"));
+            Console.WriteLine("First Non-Repeating Character: " + FirstNonRepeatingChar("leetcode"));
+            commonServices.PrintDictionary<int, int>(FrequencyInIntegerArray(new int[] { 1,2,2,3,3,3 }), (key, value) => $"Number: {key}, Frequency: {value}");
+            Console.WriteLine("Missing Number using Formula: " + FindMissingNumberUsingFormula(new int[] { 1,3,4 }));
         }
         #endregion
 
@@ -535,6 +541,118 @@ namespace DSARoadmap.ArrayAndStringProblems
             }
 
             return dict;
+        }
+
+        /// <summary>
+        /// This method removes duplicate characters from the given string, preserving the order of first occurrences.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public string RemoveDuplicates(string str)
+        {
+            HashSet<char> seen = new HashSet<char>();
+            StringBuilder result = new StringBuilder();
+
+            foreach (char c in str)
+            {
+                if (!seen.Contains(c))
+                {
+                    seen.Add(c);
+                    result.Append(c);
+                }
+            }
+
+            return result.ToString();
+        }
+
+        /// <summary>
+        /// This method reverses the order of words in a given sentence while preserving the order of characters within each word.
+        /// </summary>
+        /// <param name="sentence"></param>
+        /// <returns></returns>
+        public string ReverseWords(string sentence)
+        {
+            string[] words = sentence
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            int left = 0, right = words.Length - 1;
+
+            while (left < right)
+            {
+                string temp = words[left];
+                words[left] = words[right];
+                words[right] = temp;
+                left++;
+                right--;
+            }
+
+            return string.Join(" ", words);
+        }
+
+        /// <summary>
+        /// This method finds the first non-repeating character in a given string and returns it. If all characters are repeating, it returns a null character ('\0').
+        /// Count character frequencies using a dictionary, then scan the string again to find
+        /// the first character with frequency one.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public char FirstNonRepeatingChar(string str)
+        {
+            Dictionary<char, int> freq = new Dictionary<char, int>();
+
+            // Step 1: Count frequency of each character
+            foreach (char c in str)
+            {
+                if (freq.ContainsKey(c))
+                    freq[c]++;
+                else
+                    freq[c] = 1;
+            }
+
+            // Step 2: Find first character with frequency = 1
+            foreach (char c in str)
+            {
+                if (freq[c] == 1)
+                    return c;
+            }
+
+            return '\0'; // No non-repeating character
+        }
+
+        /// <summary>
+        /// This method calculates the frequency of each integer in the given array and returns a dictionary mapping each integer to its frequency count.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public Dictionary<int, int> FrequencyInIntegerArray(int[] arr)
+        {
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            foreach (int num in arr)
+            {
+                if (dict.ContainsKey(num))
+                    dict[num]++;
+                else
+                    dict[num] = 1;
+            }
+            return dict;
+        }
+
+        /// <summary>
+        /// This method finds the missing number in an array containing n distinct numbers from the range 0 to n using the formula approach.
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int FindMissingNumberUsingFormula(int[] nums)
+        {
+            //int n = nums.Length + 1; // if there are n distinct numbers from 0 to n, the length of the array will be n (since one number is missing)
+            int n = nums.Length; // if there are n distinct numbers from 0 to n-1, the length of the array will be n (since one number is missing)
+            int expectedSum = n * (n + 1) / 2;
+            int actualSum = 0;
+            foreach (int num in nums)
+            {
+                actualSum += num;
+            }
+            return expectedSum - actualSum;
         }
         #endregion
 
