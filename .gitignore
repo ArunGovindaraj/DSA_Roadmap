@@ -1,0 +1,21 @@
+﻿# Build folders
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Environment files
+appsettings.Development.json
+
+# Node modules (if frontend inside)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
