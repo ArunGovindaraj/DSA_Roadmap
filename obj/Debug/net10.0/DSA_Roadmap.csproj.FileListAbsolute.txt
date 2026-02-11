@@ -1,0 +1,14 @@
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\bin\Debug\net10.0\DSA_Roadmap.exe
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\bin\Debug\net10.0\DSA_Roadmap.deps.json
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\bin\Debug\net10.0\DSA_Roadmap.runtimeconfig.json
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\bin\Debug\net10.0\DSA_Roadmap.dll
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\bin\Debug\net10.0\DSA_Roadmap.pdb
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\obj\Debug\net10.0\DSA_Roadmap.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\obj\Debug\net10.0\DSA_Roadmap.AssemblyInfoInputs.cache
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\obj\Debug\net10.0\DSA_Roadmap.AssemblyInfo.cs
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\obj\Debug\net10.0\DSA_Roadmap.csproj.CoreCompileInputs.cache
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\obj\Debug\net10.0\DSA_Roadmap.dll
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\obj\Debug\net10.0\refint\DSA_Roadmap.dll
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\obj\Debug\net10.0\DSA_Roadmap.pdb
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\obj\Debug\net10.0\DSA_Roadmap.genruntimeconfig.cache
+C:\Users\g.arun\OneDrive - Motherson Group\Arun\DSA Roadmap\DSA_Roadmap\obj\Debug\net10.0\ref\DSA_Roadmap.dll
