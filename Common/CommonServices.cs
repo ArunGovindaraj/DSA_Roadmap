@@ -1,4 +1,6 @@
-﻿namespace DSARoadmap.Common.CommonServices
+﻿using System.Reflection;
+
+namespace DSARoadmap.Common.CommonServices
 {
     public class CommonServices
     {
@@ -71,6 +73,13 @@
             }
         }
 
+        /// <summary>
+        /// This method prints the contents of a dictionary to the console using a custom formatter function.
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dictionary"></param>
+        /// <param name="formatter"></param>
         public void PrintDictionary<TKey, TValue>(Dictionary<TKey, TValue> dictionary, Func<TKey, TValue, string> formatter)
         {
             if (dictionary == null || dictionary.Count == 0)
@@ -85,5 +94,83 @@
             }
         }
 
+        /// <summary>
+        /// This method prints the properties and their values of an object or a collection of objects to the console.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="preText"></param>
+        public void PrintKeyValue(object data, string preText = "List")
+        {
+            if (data == null)
+            {
+                Console.WriteLine(preText);
+                Console.WriteLine("No data");
+                return;
+            }
+
+            // Handle collection
+            if (data is System.Collections.IEnumerable list && !(data is string))
+            {
+                Console.WriteLine(preText);
+                int index = 1;
+                foreach (var item in list)
+                {
+                    Console.WriteLine($"--- Record {index++} ---");
+                    PrintSingleObject(item);
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                PrintSingleObject(data);
+            }
+        }
+
+        /// <summary>
+        /// This method uses reflection to print the properties and their values of a single object to the console. It handles primitive types, strings, enums, and complex objects by iterating through their properties. If a property value cannot be retrieved, it catches the exception and prints an error message instead.
+        /// </summary>
+        /// <param name="obj"></param>
+        private static void PrintSingleObject(object obj)
+        {
+            if (obj == null)
+            {
+                Console.WriteLine("NULL");
+                return;
+            }
+
+            var type = obj.GetType();
+
+            // Print primitives and strings directly
+            if (type == typeof(string) || type.IsPrimitive || type.IsEnum || type == typeof(decimal))
+            {
+                Console.WriteLine(obj.ToString());
+                return;
+            }
+
+            var properties = type.GetProperties();
+
+            foreach (var prop in properties)
+            {
+                // Skip indexer properties (they require parameters)
+                if (prop.GetIndexParameters().Length > 0)
+                    continue;
+
+                object value;
+                try
+                {
+                    value = prop.GetValue(obj) ?? "NULL";
+                }
+                catch (TargetInvocationException)
+                {
+                    value = "Error retrieving value";
+                }
+                catch (TargetParameterCountException)
+                {
+                    value = "Indexer requires parameters";
+                }
+
+                Console.WriteLine($"{prop.Name} : {value}");
+            }
+        }
     }
 }

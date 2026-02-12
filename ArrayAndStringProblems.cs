@@ -77,6 +77,7 @@ namespace DSARoadmap.ArrayAndStringProblems
             Console.WriteLine("First Non-Repeating Character: " + FirstNonRepeatingChar("leetcode"));
             commonServices.PrintDictionary<int, int>(FrequencyInIntegerArray(new int[] { 1,2,2,3,3,3 }), (key, value) => $"Number: {key}, Frequency: {value}");
             Console.WriteLine("Missing Number using Formula: " + FindMissingNumberUsingFormula(new int[] { 1,3,4 }));
+            Console.WriteLine("2nd Largest Element: " + FindNthLargest(new int[] { 3,1,2,5,4 }, 2));
         }
         #endregion
 
@@ -654,6 +655,21 @@ namespace DSARoadmap.ArrayAndStringProblems
             }
             return expectedSum - actualSum;
         }
+
+        /// <summary>
+        /// This method finds the n-th largest element in an unsorted array of integers using the Quickselect algorithm, which has an average time complexity of O(n).
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int FindNthLargest(int[] nums, int n)
+        {
+            int targetIndex = nums.Length - n;
+            return QuickSelect(nums, 0, nums.Length - 1, targetIndex);
+        }
+
+        
+
         #endregion
 
         #region Private Helper Methods for SortedArrayToBST
@@ -715,6 +731,55 @@ namespace DSARoadmap.ArrayAndStringProblems
         }
         #endregion
 
+        #region Private Helper Methods for FindNthLargest
+        /// <summary>
+        /// This method implements the Quickselect algorithm to find the k-th smallest element in an array.
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        private int QuickSelect(int[] nums, int left, int right, int k)
+        {
+            if (left == right)
+                return nums[left];
 
+            int pivotIndex = Partition(nums, left, right);
+
+            if (pivotIndex == k)
+                return nums[k];
+            else if (pivotIndex < k)
+                return QuickSelect(nums, pivotIndex + 1, right, k);
+            else
+                return QuickSelect(nums, left, pivotIndex - 1, k);
+        }
+
+        /// <summary>
+        /// This method partitions the array around a pivot element, rearranging elements such that those less than or equal to the pivot
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        private int Partition(int[] nums, int left, int right)
+        {
+            int pivot = nums[right];
+            int i = left;
+
+            for (int j = left; j < right; j++)
+            {
+                if (nums[j] <= pivot)
+                {
+                    (nums[i], nums[j]) = (nums[j], nums[i]);
+                    i++;
+                }
+            }
+
+            (nums[i], nums[right]) = (nums[right], nums[i]);
+
+            return i;
+        }
+        #endregion
     }
 }
