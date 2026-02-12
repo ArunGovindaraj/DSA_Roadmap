@@ -12,6 +12,8 @@ namespace DSARoadmap.SortingAlgorithms
         public SortingAlgo(CommonServices _commonServices)
         {
             commonServices = _commonServices;
+            commonServices.WriteArray(bubbleSortAlgo(new int[] { 64, 34, 25, 12, 22, 11, 90 }), "Sorted Array: ");
+            commonServices.WriteArray(selectionSortAlgo(new int[] { 64, 25, 12, 22, 11 }), "Sorted Array: ");
         }
         #endregion
 
@@ -45,8 +47,8 @@ namespace DSARoadmap.SortingAlgorithms
 
                         sorted = false;
                     }
-
                 }
+                commonServices.WriteArray(inputArray, $"Array after round {rounds + 1}: ");
                 rounds++; // increment rounds variable on each for loop completion
             }
 

@@ -1,5 +1,7 @@
 ﻿using DSARoadmap.Common.CommonServices;
+using DSARoadmap.SortingAlgorithms;
 using System.Globalization;
+using System.Text;
 using System.Transactions;
 
 namespace DSARoadmap.ArrayAndStringProblems
@@ -71,6 +73,14 @@ namespace DSARoadmap.ArrayAndStringProblems
             Console.WriteLine("Missing Number is: " + MissingNumber(new int[] { 3,0,1 })); 
             Console.WriteLine("Duplicate Number is: " + FindDuplicateNumber(new int[] { 1,3,4,2,2 }));
             commonServices.PrintDictionary<char, int>(CountOccurrences("hello world"), (key, value) => $"Character: {key}, Occurrences: {value}");
+            Console.WriteLine("String after removing duplicates: " + RemoveDuplicates("hello world"));
+            Console.WriteLine("Reversed Words in Sentence: " + ReverseWords("Hello World from DSA Roadmap"));
+            Console.WriteLine("First Non-Repeating Character: " + FirstNonRepeatingChar("leetcode"));
+            commonServices.PrintDictionary<int, int>(FrequencyInIntegerArray(new int[] { 1,2,2,3,3,3 }), (key, value) => $"Number: {key}, Frequency: {value}");
+            Console.WriteLine("Missing Number using Formula: " + FindMissingNumberUsingFormula(new int[] { 1,3,4 }));
+            Console.WriteLine("2nd Largest Element: " + FindNthLargest(new int[] { 3,1,2,5,4 }, 2));
+            commonServices.WriteArray(RemoveDuplicatesIntegerArray(new int[] { 1,2,2,3,4,4,5 }), "Array after Removing Duplicates: ");
+            commonServices.WriteArray(SortAndRemoveDuplicateIntegerArray(new int[] { 6,9,1,2,2,3,4,4,5,10,11,40 }), "Sorted Array after Removing Duplicates: ");
         }
         #endregion
 
@@ -536,6 +546,164 @@ namespace DSARoadmap.ArrayAndStringProblems
 
             return dict;
         }
+
+        /// <summary>
+        /// This method removes duplicate characters from the given string, preserving the order of first occurrences.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public string RemoveDuplicates(string str)
+        {
+            HashSet<char> seen = new HashSet<char>();
+            StringBuilder result = new StringBuilder();
+
+            foreach (char c in str)
+            {
+                if (!seen.Contains(c))
+                {
+                    seen.Add(c);
+                    result.Append(c);
+                }
+            }
+
+            return result.ToString();
+        }
+
+        /// <summary>
+        /// This method reverses the order of words in a given sentence while preserving the order of characters within each word.
+        /// </summary>
+        /// <param name="sentence"></param>
+        /// <returns></returns>
+        public string ReverseWords(string sentence)
+        {
+            string[] words = sentence
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            int left = 0, right = words.Length - 1;
+
+            while (left < right)
+            {
+                string temp = words[left];
+                words[left] = words[right];
+                words[right] = temp;
+                left++;
+                right--;
+            }
+
+            return string.Join(" ", words);
+        }
+
+        /// <summary>
+        /// This method finds the first non-repeating character in a given string and returns it. If all characters are repeating, it returns a null character ('\0').
+        /// Count character frequencies using a dictionary, then scan the string again to find
+        /// the first character with frequency one.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public char FirstNonRepeatingChar(string str)
+        {
+            Dictionary<char, int> freq = new Dictionary<char, int>();
+
+            // Step 1: Count frequency of each character
+            foreach (char c in str)
+            {
+                if (freq.ContainsKey(c))
+                    freq[c]++;
+                else
+                    freq[c] = 1;
+            }
+
+            // Step 2: Find first character with frequency = 1
+            foreach (char c in str)
+            {
+                if (freq[c] == 1)
+                    return c;
+            }
+
+            return '\0'; // No non-repeating character
+        }
+
+        /// <summary>
+        /// This method calculates the frequency of each integer in the given array and returns a dictionary mapping each integer to its frequency count.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public Dictionary<int, int> FrequencyInIntegerArray(int[] arr)
+        {
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            foreach (int num in arr)
+            {
+                if (dict.ContainsKey(num))
+                    dict[num]++;
+                else
+                    dict[num] = 1;
+            }
+            return dict;
+        }
+
+        /// <summary>
+        /// This method finds the missing number in an array containing n distinct numbers from the range 0 to n using the formula approach.
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int FindMissingNumberUsingFormula(int[] nums)
+        {
+            //int n = nums.Length + 1; // if there are n distinct numbers from 0 to n, the length of the array will be n (since one number is missing)
+            int n = nums.Length; // if there are n distinct numbers from 0 to n-1, the length of the array will be n (since one number is missing)
+            int expectedSum = n * (n + 1) / 2;
+            int actualSum = 0;
+            foreach (int num in nums)
+            {
+                actualSum += num;
+            }
+            return expectedSum - actualSum;
+        }
+
+        /// <summary>
+        /// This method finds the n-th largest element in an unsorted array of integers using the Quickselect algorithm, which has an average time complexity of O(n).
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int FindNthLargest(int[] nums, int n)
+        {
+            int targetIndex = nums.Length - n;
+            return QuickSelect(nums, 0, nums.Length - 1, targetIndex);
+        }
+
+        /// <summary>
+        /// This method removes duplicate integers from the given array while preserving the order of first occurrences. The resulting array contains only unique integers from the input array.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public int[] RemoveDuplicatesIntegerArray(int[] arr)
+        {
+            HashSet<int> seen = new HashSet<int>();
+            List<int> result = new List<int>();
+            foreach (int num in arr)
+            {
+                if (!seen.Contains(num))
+                {
+                    seen.Add(num);
+                    result.Add(num);
+                }
+            }
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// This method sorts the given array of integers in ascending order and removes duplicate values, returning a new array that contains only unique integers from the input array in sorted order.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public int[] SortAndRemoveDuplicateIntegerArray(int[] arr)
+        {
+            SortingAlgo sortingAlgo = new SortingAlgo(commonServices);
+            int[] sortedArray = sortingAlgo.bubbleSortAlgo(arr);
+            int[] uniqueSortedArray = RemoveDuplicatesIntegerArray(sortedArray);
+
+            return uniqueSortedArray;
+        }
         #endregion
 
         #region Private Helper Methods for SortedArrayToBST
@@ -597,6 +765,55 @@ namespace DSARoadmap.ArrayAndStringProblems
         }
         #endregion
 
+        #region Private Helper Methods for FindNthLargest
+        /// <summary>
+        /// This method implements the Quickselect algorithm to find the k-th smallest element in an array.
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        private int QuickSelect(int[] nums, int left, int right, int k)
+        {
+            if (left == right)
+                return nums[left];
 
+            int pivotIndex = Partition(nums, left, right);
+
+            if (pivotIndex == k)
+                return nums[k];
+            else if (pivotIndex < k)
+                return QuickSelect(nums, pivotIndex + 1, right, k);
+            else
+                return QuickSelect(nums, left, pivotIndex - 1, k);
+        }
+
+        /// <summary>
+        /// This method partitions the array around a pivot element, rearranging elements such that those less than or equal to the pivot
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        private int Partition(int[] nums, int left, int right)
+        {
+            int pivot = nums[right];
+            int i = left;
+
+            for (int j = left; j < right; j++)
+            {
+                if (nums[j] <= pivot)
+                {
+                    (nums[i], nums[j]) = (nums[j], nums[i]);
+                    i++;
+                }
+            }
+
+            (nums[i], nums[right]) = (nums[right], nums[i]);
+
+            return i;
+        }
+        #endregion
     }
 }

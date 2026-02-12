@@ -1,6 +1,6 @@
 ﻿using DSARoadmap.Common.CommonServices;
 
-namespace DSA_Roadmap.BinarySearch
+namespace DSARoadmap.BinarySearch
 {
     public class BinarySearch
     {
