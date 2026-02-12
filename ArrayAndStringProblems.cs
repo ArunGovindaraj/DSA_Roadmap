@@ -1,4 +1,5 @@
 ﻿using DSARoadmap.Common.CommonServices;
+using DSARoadmap.SortingAlgorithms;
 using System.Globalization;
 using System.Text;
 using System.Transactions;
@@ -78,6 +79,8 @@ namespace DSARoadmap.ArrayAndStringProblems
             commonServices.PrintDictionary<int, int>(FrequencyInIntegerArray(new int[] { 1,2,2,3,3,3 }), (key, value) => $"Number: {key}, Frequency: {value}");
             Console.WriteLine("Missing Number using Formula: " + FindMissingNumberUsingFormula(new int[] { 1,3,4 }));
             Console.WriteLine("2nd Largest Element: " + FindNthLargest(new int[] { 3,1,2,5,4 }, 2));
+            commonServices.WriteArray(RemoveDuplicatesIntegerArray(new int[] { 1,2,2,3,4,4,5 }), "Array after Removing Duplicates: ");
+            commonServices.WriteArray(SortAndRemoveDuplicateIntegerArray(new int[] { 6,9,1,2,2,3,4,4,5,10,11,40 }), "Sorted Array after Removing Duplicates: ");
         }
         #endregion
 
@@ -668,8 +671,39 @@ namespace DSARoadmap.ArrayAndStringProblems
             return QuickSelect(nums, 0, nums.Length - 1, targetIndex);
         }
 
-        
+        /// <summary>
+        /// This method removes duplicate integers from the given array while preserving the order of first occurrences. The resulting array contains only unique integers from the input array.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public int[] RemoveDuplicatesIntegerArray(int[] arr)
+        {
+            HashSet<int> seen = new HashSet<int>();
+            List<int> result = new List<int>();
+            foreach (int num in arr)
+            {
+                if (!seen.Contains(num))
+                {
+                    seen.Add(num);
+                    result.Add(num);
+                }
+            }
+            return result.ToArray();
+        }
 
+        /// <summary>
+        /// This method sorts the given array of integers in ascending order and removes duplicate values, returning a new array that contains only unique integers from the input array in sorted order.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public int[] SortAndRemoveDuplicateIntegerArray(int[] arr)
+        {
+            SortingAlgo sortingAlgo = new SortingAlgo(commonServices);
+            int[] sortedArray = sortingAlgo.bubbleSortAlgo(arr);
+            int[] uniqueSortedArray = RemoveDuplicatesIntegerArray(sortedArray);
+
+            return uniqueSortedArray;
+        }
         #endregion
 
         #region Private Helper Methods for SortedArrayToBST
