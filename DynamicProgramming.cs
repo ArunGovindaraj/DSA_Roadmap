@@ -1,9 +1,6 @@
 ﻿using DSARoadmap.Common.CommonServices;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace DSA_Roadmap.DynamicProgramming
+namespace DSARoadmap.DynamicProgramming
 {
     public class DynamicProgramming
     {

@@ -1,7 +1,7 @@
 ﻿using DSARoadmap.Common.CommonServices;
-using DSA_Roadmap.Models;
+using DSARoadmap.Models;
 
-namespace LeetCode_Problems
+namespace DSARoadmap.SolvingByLINQ
 {
     public class SolvingByLINQ
     {

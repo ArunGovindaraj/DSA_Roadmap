@@ -1,6 +1,6 @@
 ﻿using DSARoadmap.Common.CommonServices;
 
-namespace DSA_Roadmap.PropelArrayChallenge
+namespace DSARoadmap.PropelArrayChallenge
 {
     public class PropelArrayChallenge
     {

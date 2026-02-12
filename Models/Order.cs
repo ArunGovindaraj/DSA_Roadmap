@@ -1,4 +1,4 @@
-﻿namespace DSA_Roadmap.Models
+﻿namespace DSARoadmap.Models
 {
     public class Order
     {
