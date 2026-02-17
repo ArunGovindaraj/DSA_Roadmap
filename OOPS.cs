@@ -53,6 +53,11 @@
     /// message.</remarks>
     public class Parent
     {
+        public void OverHiding()
+        {
+            Console.WriteLine("Parent Method - Overhiding");
+        }
+
         public virtual void ShowMessage()
         {
             Console.WriteLine("Message from Parent class");
@@ -69,6 +74,16 @@
         public override void ShowMessage()
         {
             Console.WriteLine("Message from Child class");
+        }
+    }
+    #endregion
+
+    #region Method Overhiding - Compile Time Polymorphism
+    public class ChildOverHiding : Parent
+    {
+        public new void OverHiding()
+        {
+            Console.WriteLine("Child Method - Overhiding");
         }
     }
     #endregion

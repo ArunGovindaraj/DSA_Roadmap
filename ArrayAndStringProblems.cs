@@ -81,6 +81,7 @@ namespace DSARoadmap.ArrayAndStringProblems
             Console.WriteLine("2nd Largest Element: " + FindNthLargest(new int[] { 3,1,2,5,4 }, 2));
             commonServices.WriteArray(RemoveDuplicatesIntegerArray(new int[] { 1,2,2,3,4,4,5 }), "Array after Removing Duplicates: ");
             commonServices.WriteArray(SortAndRemoveDuplicateIntegerArray(new int[] { 6,9,1,2,2,3,4,4,5,10,11,40 }), "Sorted Array after Removing Duplicates: ");
+            Console.WriteLine(ReverseAString("radar1"));
         }
         #endregion
 
@@ -508,7 +509,7 @@ namespace DSARoadmap.ArrayAndStringProblems
         {
             // Floyd's Tortoise and Hare (Cycle Detection) algorithm
             int tortoise = nums[0];
-            int hare = nums[0];
+            int hare = nums[0]; 
 
             // Phase 1: Finding the intersection point in the cycle
             do
@@ -704,6 +705,23 @@ namespace DSARoadmap.ArrayAndStringProblems
 
             return uniqueSortedArray;
         }
+
+        public string? ReverseAString(string str)
+        {
+            char[] chars = str.ToCharArray();
+            int left = 0;
+            int right = chars.Length - 1;
+
+            while (left < right) {
+                char temp = chars[left];
+                chars[left] = chars[right];
+                chars[right] = temp;
+                left++;
+                right--;
+            }
+
+            return string.Join("", chars);
+        }    
         #endregion
 
         #region Private Helper Methods for SortedArrayToBST
