@@ -21,6 +21,7 @@ namespace DSARoadmap.SolvingByLINQ
             Console.WriteLine(linqMethodSyntaxForOperators.RemoveVowels("Hello World"));
             _commonServices.WriteArray(linqMethodSyntaxForOperators.FindDuplicatesAndOrderByDescending(new int[] { 1, 2, 5, 3, 4, 4, 5, 1 }));
             _commonServices.WriteArray(linqMethodSyntaxForOperators.RemoveDuplicateAndTakeNValues(new int[] { 1, 2, 5, 3, 4, 4, 5, 1 }, 1));
+            Console.WriteLine("Sum of Odd Numbers: " + linqMethodSyntaxForOperators.SumOddNumbersInArray(new int[] { 1, 2, 3, 4, 5 }));
             
             List<User> users = new List<User>
             {
@@ -154,6 +155,16 @@ namespace DSARoadmap.SolvingByLINQ
         }
 
         /// <summary>
+        /// Calculates the sum of all odd numbers in the specified array.
+        /// </summary>
+        /// <param name="numbers">An array of integers to search for odd numbers. Cannot be null.</param>
+        /// <returns>The sum of all odd numbers in the array. Returns 0 if there are no odd numbers.</returns>
+        public int SumOddNumbersInArray(int[] numbers)
+        {
+            return numbers.Where(x => x % 2 != 0).Sum();
+        }
+
+        /// <summary>s
         /// Returns a sequence of distinct integers from the input array, limited to the specified number of elements.
         /// </summary>
         /// <param name="numbers">The array of integers from which to remove duplicates and select values. Cannot be null.</param>

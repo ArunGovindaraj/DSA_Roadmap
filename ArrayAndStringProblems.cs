@@ -70,7 +70,7 @@ namespace DSARoadmap.ArrayAndStringProblems
             Console.WriteLine(SearchInsertPosition(new int[] { 1,3,6,7,8 }, 5));
             commonServices.WriteArray(FindWordsContaining(new string[] { "apple", "banana", "cherry", "date" }, 'a'), "Words Containing 'a': ");
             commonServices.WriteArray(SummaryRanges(new int[] { 0,1,2,4,5,7 }), "Summary Ranges: ");
-            Console.WriteLine("Missing Number is: " + MissingNumber(new int[] { 3,0,1 })); 
+            Console.WriteLine("MAIN : Missing Number is: " + MissingNumber(new int[] { 3,0,1,2 })); 
             Console.WriteLine("Duplicate Number is: " + FindDuplicateNumber(new int[] { 1,3,4,2,2 }));
             commonServices.PrintDictionary<char, int>(CountOccurrences("hello world"), (key, value) => $"Character: {key}, Occurrences: {value}");
             Console.WriteLine("String after removing duplicates: " + RemoveDuplicates("hello world"));
@@ -721,7 +721,24 @@ namespace DSARoadmap.ArrayAndStringProblems
             }
 
             return string.Join("", chars);
-        }    
+        }
+
+        /// <summary>
+        /// This method returns the odd numbers in between the given range.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public List<int> OddNumbers(int left, int right)
+        {
+            List<int> result = new List<int>();
+            for (int i = 0; i < left; i++)
+            {
+                result.Add(i);
+            }
+
+            return result;
+        }
         #endregion
 
         #region Private Helper Methods for SortedArrayToBST
