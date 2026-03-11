@@ -22,6 +22,7 @@ namespace DSARoadmap.DSAProblemsTopicWise
             Console.WriteLine("Find Duplicate value: " + FindDuplicate(new int[] { 1, 3, 4, 2, 2 }));
             Console.WriteLine("No of times rain water trapped: " + TrappingRainWater(new int[] { 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }));
             commonServices.WriteArray(NextPermutation(new int[] { 1, 2, 3 }), "Next Permutation: ");
+            commonServices.WriteArray(FibonacciArray(10), "Fibonacci Array: ");
         }
         #endregion
 
@@ -576,6 +577,23 @@ namespace DSARoadmap.DSAProblemsTopicWise
             ReverseArray(nums, i + 1, n - 1);
 
             return nums;
+        }
+        #endregion
+
+        #region Fibonacci Number
+        public int[] FibonacciArray(int n)
+        {
+            int[] fib = new int[n];
+
+            if (n > 0) fib[0] = 0;
+            if (n > 1) fib[1] = 1;
+
+            for (int i = 2; i < n; i++)
+            {
+                fib[i] = fib[i - 1] + fib[i - 2];
+            }
+
+            return fib;
         }
         #endregion
         #endregion

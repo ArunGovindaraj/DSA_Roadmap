@@ -20,6 +20,7 @@ namespace DSARoadmap.DSAProblemsTopicWise
             Console.WriteLine("My ATOI: " + MyATOI("   -42"));
             KMPSearch("ababcababc", "abc");
             Console.WriteLine("Minimum Window Substring: " + MinimumWindowSubstring("ADOBECODEBANC", "ABC"));
+            Console.WriteLine("Reverse Each Word in sentence: " + ReverseEachWordInSentence("I'm Arun"));
         }
         #endregion
 
@@ -570,6 +571,44 @@ namespace DSARoadmap.DSAProblemsTopicWise
             return minLen == int.MaxValue
                 ? ""
                 : s.Substring(minStart, minLen);
+        }
+        #endregion
+
+        #region Reverse Each Word in a Sentence
+        /// <summary>
+        /// Reverses the characters of each word in the given sentence while maintaining the original order of the words. Words are defined as sequences of non-space characters, and the method handles multiple spaces by treating them as a single delimiter.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string ReverseEachWordInSentence(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return s;
+
+            string[] words = s.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                char[] charArray = words[i].ToCharArray();
+                int left = 0; 
+                int right = charArray.Length - 1;
+
+                while(left < right)
+                {
+                    char temp = charArray[left];
+                    charArray[left] = charArray[right];
+                    charArray[right] = temp;
+                    left++;
+                    right--;
+                }
+
+                words[i] = new string(charArray);
+
+                //Array.Reverse(charArray);
+                //words[i] = new string(charArray);
+            }
+
+            return string.Join(" ", words);
         }
         #endregion
         #endregion

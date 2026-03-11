@@ -108,15 +108,15 @@
             if (!userSubscriptions.ContainsKey(userId))
                 return result;
 
-            List<string> pubs = userSubscriptions[userId];
+            List<string> publishers = userSubscriptions[userId];
 
             // Collect all posts
-            for (int i = 0; i < pubs.Count; i++)
+            for (int i = 0; i < publishers.Count; i++)
             {
-                string pub = pubs[i];
-                if (publisherPosts.ContainsKey(pub))
+                string publisher = publishers[i];
+                if (publisherPosts.ContainsKey(publisher))
                 {
-                    List<Post> posts = publisherPosts[pub];
+                    List<Post> posts = publisherPosts[publisher];
                     for (int j = 0; j < posts.Count; j++)
                     {
                         allPosts.Add(posts[j]);
